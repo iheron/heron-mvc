@@ -1,0 +1,16 @@
+{
+  "name": "heron-mvc",
+  "version": "0.0.1",
+  "description": "MVC Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "heron",
+    "mvc",
+    "heron-mvc"
+  ],
+  "author": "heron",
+  "license": "MIT"
+}
