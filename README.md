@@ -30,7 +30,10 @@ heron-mvc
     app.js里这样调用
     examples:
     var mvc = require('heron-mvc');
-    mvc.route(null, function (data) {
+    mvc.route({
+        routeDir: path.join(__dirname, 'express/routes'),
+        controllerDir: path.join(__dirname, 'express/controllers')
+    }, function (data) {
         app.use("/"+data.route, data.router);
     },function (data) {
         app[data.method]("/"+data.controller+"/"+data.action, data.func);
