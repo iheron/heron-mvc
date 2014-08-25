@@ -12,8 +12,8 @@
   *   controllerRegex  # controller regex
   * }
   */
-  module.exports = function(options, fn){
-    var root, getRouteFileSync, getControllerFileSync, controllers, results, i$, len$, controllerArr, controller, action, methods, action$, ref$, k, v;
+  module.exports = function(options, loadRoute, loadController){
+    var root, getRouteFileSync, getControllerFileSync, routes, i$, len$, routeArr, route, controllers, controllerArr, lresult$, controller, action, methods, lresult1$, action$, ref$, k, v, results$ = [];
     root = process.cwd();
     options == null && (options = {});
     if (!options.routeDir) {
@@ -58,16 +58,31 @@
         return [controller, item];
       });
     };
+    routes = getRouteFileSync(options.routeDir);
+    if (!routes) {
+      throw new Error("can not read route directory: " + options.routeDir);
+    }
+    for (i$ = 0, len$ = routes.length; i$ < len$; ++i$) {
+      routeArr = routes[i$];
+      route = require(path.join(options.routeDir, routeArr[1]));
+      if ('function' === typeof loadRoute) {
+        loadRoute({
+          route: routeArr[0],
+          router: route
+        });
+      }
+    }
     controllers = getControllerFileSync(options.controllerDir);
     if (!controllers) {
       throw new Error("can not read controller directory: " + options.controllerDir);
     }
-    results = {};
     for (i$ = 0, len$ = controllers.length; i$ < len$; ++i$) {
       controllerArr = controllers[i$];
-      controller = require(path.join(options.controllerDir, "./" + controllerArr[1]));
+      lresult$ = [];
+      controller = require(path.join(options.controllerDir, controllerArr[1]));
       for (action in controller) {
         methods = controller[action];
+        lresult1$ = [];
         action$ = (ref$ = {}, ref$[action + ""] = {}, ref$);
         for (k in methods) {
           v = methods[k];
@@ -78,24 +93,20 @@
           case 'put':
           case 'delete':
             action$[action + ""][k + ""] = v;
-            if ('function' === typeof fn) {
-              fn({
+            if ('function' === typeof loadController) {
+              lresult1$.push(loadController({
                 controller: controllerArr[0],
                 action: action,
                 method: k,
                 func: v
-              });
+              }));
             }
           }
         }
-        import$(results, action$);
+        lresult$.push(lresult1$);
       }
+      results$.push(lresult$);
     }
-    return results;
+    return results$;
   };
-  function import$(obj, src){
-    var own = {}.hasOwnProperty;
-    for (var key in src) if (own.call(src, key)) obj[key] = src[key];
-    return obj;
-  }
 }).call(this);

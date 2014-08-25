@@ -11,7 +11,7 @@ require! {
 *   controllerRegex  # controller regex
 * }
 */
-module.exports = (options, fn) ->
+module.exports = (options, load-route, load-controller) ->
   root = process.cwd()
   options ?= {}
   if !options.route-dir
@@ -43,24 +43,32 @@ module.exports = (options, fn) ->
       controller = controller.replace /_$/i, ""
       [ controller , item ]
 
+  # load route
+  routes = getRouteFileSync options.route-dir
+  if !routes
+    throw new Error("can not read route directory: #{options.route-dir}")
+  for route-arr in routes
+    route = require path.join options.route-dir, route-arr.[1]
+    if 'function' == typeof load-route
+      load-route do
+        route: route-arr.[0]
+        router: route
+
+  # load controllers
   controllers = getControllerFileSync options.controller-dir
   if !controllers
     throw new Error("can not read controller directory: #{options.controller-dir}")
-  results = {}
   for controller-arr in controllers
-    controller = require path.join options.controllerDir, "./#{controller-arr.[1]}"
+    controller = require path.join options.controller-dir, controller-arr.[1]
     for action, methods of controller
       action$ = "#action": {}
       for k, v of methods
         switch k
         | 'all' 'get' 'post' 'put' 'delete' =>
           action$.["#action"] <<< "#k": v
-          if 'function' == typeof fn
-            fn do
+          if 'function' == typeof load-controller
+            load-controller do
               controller: controller-arr.[0]
               action: action
               method: k
               func: v
-      results <<< action$
-  results
-
