@@ -53,7 +53,7 @@ module.exports = (options, fn) ->
       action$ = "#action": {}
       for k, v of methods
         switch k
-        | 'all' 'get' 'post' =>
+        | 'all' 'get' 'post' 'put' 'delete' =>
           action$.["#action"] <<< "#k": v
           if 'function' == typeof fn
             fn do
