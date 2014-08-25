@@ -1,17 +1,17 @@
 {
-  "name": "heron-mvc",
-  "version": "0.0.1",
-  "description": "MVC Framework",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "heron",
-    "mvc",
-    "heron-mvc"
-  ],
-  "author": "heron",
+    "name": "heron-mvc",
+    "version": "0.0.2",
+    "description": "MVC Framework",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "heron",
+        "mvc",
+        "heron-mvc"
+    ],
+    "author": "heron",
     "homepage": "https://github.com/iheron",
     "repository": {
         "type": "git",
