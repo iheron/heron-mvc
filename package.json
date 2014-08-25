@@ -1,6 +1,6 @@
 {
     "name": "heron-mvc",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "MVC Framework",
     "main": "index.js",
     "scripts": {

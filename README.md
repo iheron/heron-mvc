@@ -30,9 +30,10 @@ heron-mvc
     app.js里这样调用
     examples:
     var mvc = require('heron-mvc');
-    mvc.route(null, function (router) {
-        console.log(router);
-        app[router.method]("/"+router.controller+"/"+router.action, router.func);
+    mvc.route(null, function (data) {
+        app.use("/"+data.route, data.router);
+    },function (data) {
+        app[data.method]("/"+data.controller+"/"+data.action, data.func);
     });
 
     如果你有controller文件叫 home_controller, action 叫 index, 有get函数. 那么,可以GET: /home/index
