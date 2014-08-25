@@ -12,5 +12,8 @@
     "heron-mvc"
   ],
   "author": "heron",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "*"
+  }
 }
