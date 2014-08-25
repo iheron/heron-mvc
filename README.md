@@ -1,9 +1,15 @@
 heron-mvc
 ============
 
-### #route(options, fn)
+### #route(options, loadRoute, loadController)
+    必须是controller结尾的文件,忽略大小写和'_'字符.
     @params: options.controllerDir  controller文件路径 默认是 /lib/controllers, 根是项目启动路径.
-    @params: fn(obj)                回调函数, 对每个controller文件执行的操作
+    @params: loadRoute(obj)         会优先加载route里的路由, 也会加载controller
+             obj {
+                route:              route名称
+                router:             require返回的router
+             }
+    @params: loadController(obj)    回调函数, 对每个controller文件执行的操作
              obj {
                 controller:         controller名称
                 action:             action名称
@@ -28,3 +34,5 @@ heron-mvc
         console.log(router);
         app[router.method]("/"+router.controller+"/"+router.action, router.func);
     });
+
+    如果你有controller文件叫 home_controller, action 叫 index, 有get函数. 那么,可以GET: /home/index
