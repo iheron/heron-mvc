@@ -2,11 +2,10 @@ var express = require('express');
 var mvc = require('heron-mvc');
 var app = express();
 
-
-app.post("/", function (req, res, next) {
-
-});
-mvc.route(null, function (data) {
+mvc.route({
+    routeDir: path.join(__dirname, 'express/routes'),
+    controllerDir: path.join(__dirname, 'express/controllers')
+}, function (data) {
     app.use("/"+data.route, data.router);
 },function (data) {
     app[data.method]("/"+data.controller+"/"+data.action, data.func);
