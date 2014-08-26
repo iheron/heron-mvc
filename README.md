@@ -1,7 +1,7 @@
 heron-mvc
 ============
 
-### #route(options, loadRoute, loadController)
+### #route.load(options, loadRoute, loadController)
     必须是controller结尾的文件,忽略大小写和'_'字符.
     @params: options.controllerDir  controller文件路径 默认是 /lib/controllers, 根是项目启动路径.
     @params: loadRoute(obj)         会优先加载route里的路由, 也会加载controller
@@ -40,3 +40,15 @@ heron-mvc
     });
 
     如果你有controller文件叫 home_controller, action 叫 index, 有get函数. 那么,可以GET: /home/index
+
+### #configure.load(dir)
+    配置文件的目录, 配置文件以.json结尾.
+    examples:
+    var path = require('path');
+    var express = require('express');
+    var mvc = require('heron-mvc');
+    var app = express();
+
+    var configures = mvc.configure.load(path.join(__dirname, 'configure'));
+    configures[app.get('env')] = mvc.configure.load(path.join(__dirname, 'configure', app.get('env')));
+    console.log(configures);

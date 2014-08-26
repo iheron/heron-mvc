@@ -1,2 +1,2 @@
-module.exports =
-  route: require './src/route'
+
+module.exports = require './src/mvc'
