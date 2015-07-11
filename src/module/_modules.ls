@@ -1,1 +1,2 @@
-module.exports = []
+_modules = []
+module.exports = _modules

@@ -10,5 +10,8 @@ require! {
 */
 module.exports =
   route: require './route'
-  module: require './module'
   configure: require './configure'
+  module: require './module'
+  load-module: require './module/load'
+  route-module: require './module/route'
+  _modules: require './module/_modules'

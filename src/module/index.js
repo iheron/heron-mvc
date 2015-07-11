@@ -4,17 +4,15 @@
   _ = require('lodash');
   heronModule = (function(){
     heronModule.displayName = 'heronModule';
-    var addModule, prototype = heronModule.prototype, constructor = heronModule;
-    heronModule._root = '';
-    heronModule._before;
-    heronModule._after;
-    heronModule._module = {};
+    var prototype = heronModule.prototype, constructor = heronModule;
     function heronModule(_root){
       this._root = _root;
+      this.get = bind$(this, 'get', prototype);
+      this.patch = bind$(this, 'patch', prototype);
+      this.options = bind$(this, 'options', prototype);
+      this.head = bind$(this, 'head', prototype);
+      this._module = [];
     }
-    addModule = function(options){
-      return this._module[option.path] = options;
-    };
     /**
      * @params: options {
      *   path                  # route dir path
@@ -23,51 +21,94 @@
      *   after                 # [function] after filter
      * }
      */
-    prototype.get = function(options, action){
-      var path, option;
-      if (_.isString(option)) {
+    prototype.head = function(options, action){
+      var path;
+      if (_.isString(options)) {
         path = options;
-        option = {};
-        option.path = path;
-        option.action = action;
-        option.method = 'get';
+        options = {};
+        options.path = path;
+        options.action = action;
+        options.method = 'head';
       }
-      return addModule(options);
+      this._module.push(options);
+      return this;
+    };
+    prototype.options = function(options, action){
+      var path;
+      if (_.isString(options)) {
+        path = options;
+        options = {};
+        options.path = path;
+        options.action = action;
+        options.method = 'options';
+      }
+      this._module.push(options);
+      return this;
+    };
+    prototype.patch = function(options, action){
+      var path;
+      if (_.isString(options)) {
+        path = options;
+        options = {};
+        options.path = path;
+        options.action = action;
+        options.method = 'patch';
+      }
+      this._module.push(options);
+      return this;
+    };
+    prototype.get = function(options, action){
+      var path;
+      if (_.isString(options)) {
+        path = options;
+        options = {};
+        options.path = path;
+        options.action = action;
+        options.method = 'get';
+      }
+      this._module.push(options);
+      return this;
     };
     prototype.post = function(options, action){
-      var path, option;
-      if (_.isString(option)) {
+      var path;
+      if (_.isString(options)) {
         path = options;
-        option = {};
-        option.path = path;
-        option.action = action;
-        option.method = 'post';
+        options = {};
+        options.path = path;
+        options.action = action;
+        options.method = 'post';
       }
-      return addModule(options);
+      this._module.push(options);
+      return this;
     };
     prototype.put = function(options, action){
-      var path, option;
-      if (_.isString(option)) {
+      var path;
+      if (_.isString(options)) {
         path = options;
-        option = {};
-        option.path = path;
-        option.action = action;
-        option.method = 'put';
+        options = {};
+        options.path = path;
+        options.action = action;
+        options.method = 'put';
       }
-      return addModule(options);
+      this._module[options.path] = options;
+      return this;
     };
     prototype['delete'] = function(options, action){
-      var path, option;
-      if (_.isString(option)) {
+      var path;
+      if (_.isString(options)) {
         path = options;
-        option = {};
-        option.path = path;
-        option.action = action;
-        option.method = 'delete';
+        options = {};
+        options.path = path;
+        options.action = action;
+        optiosn.method = 'delete';
       }
-      return addModule(options);
+      this._module[options.path] = options;
+      return this;
     };
     return heronModule;
   }());
-  module.exports = (heronModule._modules = require(('./_modules'.load = require('./load'), './_modules')), heronModule);
+  module.exports = heronModule;
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
 }).call(this);

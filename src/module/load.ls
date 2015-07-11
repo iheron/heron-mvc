@@ -1,6 +1,7 @@
 require! {
   fs
   path
+  lodash: _
   './_modules'
 }
 module.exports = (dir) ->

@@ -3,13 +3,9 @@ require!{
 }
 
 class heron-module
-  @_root = ''              # 根目录
-  @_before
-  @_after
-  @_module = {}
+
   (@_root) ->
-  add-module = (options) ->
-    @_module.[option.path] = options
+    @_module = []
 
   /**
    * @params: options {
@@ -19,43 +15,75 @@ class heron-module
    *   after                 # [function] after filter
    * }
    */
-  get: (options, action) ->
-    if _.isString option
+  head: (options, action) ~>
+    if _.isString options
       path = options
-      option = {}
-      option.path = path
-      option.action = action
-      option.method = 'get'
-    add-module options
+      options = {}
+      options.path = path
+      options.action = action
+      options.method = 'head'
+    @_module.push options
+    @
+
+  options: (options, action) ~>
+    if _.isString options
+      path = options
+      options = {}
+      options.path = path
+      options.action = action
+      options.method = 'options'
+    @_module.push options
+    @
+
+  patch: (options, action) ~>
+    if _.isString options
+      path = options
+      options = {}
+      options.path = path
+      options.action = action
+      options.method = 'patch'
+    @_module.push options
+    @
+
+  get: (options, action) ~>
+    if _.isString options
+      path = options
+      options = {}
+      options.path = path
+      options.action = action
+      options.method = 'get'
+    @_module.push options
+    @
 
   post: (options, action) ->
-    if _.isString option
+    if _.isString options
       path = options
-      option = {}
-      option.path = path
-      option.action = action
-      option.method = 'post'
-    add-module options
+      options = {}
+      options.path = path
+      options.action = action
+      options.method = 'post'
+    @_module.push options
+    @
 
   put: (options, action) ->
-    if _.isString option
+    if _.isString options
       path = options
-      option = {}
-      option.path = path
-      option.action = action
-      option.method = 'put'
-    add-module options
+      options = {}
+      options.path = path
+      options.action = action
+      options.method = 'put'
+    @_module.[options.path] = options
+    @
 
   delete: (options, action) ->
-    if _.isString option
+    if _.isString options
       path = options
-      option = {}
-      option.path = path
-      option.action = action
-      option.method = 'delete'
-    add-module options
+      options = {}
+      options.path = path
+      options.action = action
+      optiosn.method = 'delete'
 
+    @_module.[options.path] = options
+    @
 module.exports = heron-module
-  <<< _modules: require './_modules'
-  <<< load: require './load'
 
