@@ -1,6 +1,8 @@
 heron-mvc
 ============
-### npm install heron-mvc
+```sh
+npm install heron-mvc
+```
 以下函数已过时，新函数文档，有空补上
 
 
