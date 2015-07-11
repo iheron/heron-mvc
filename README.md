@@ -1,5 +1,9 @@
 heron-mvc
 ============
+### npm install heron-mvc
+以下函数已过时，新函数文档，有空补上
+
+
 
 ### #route.load(options, loadRoute, loadController)
     必须是controller结尾的文件,忽略大小写和'_'字符.
