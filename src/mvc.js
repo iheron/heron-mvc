@@ -11,6 +11,7 @@
   */
   module.exports = {
     route: require('./route'),
+    module: require('./module'),
     configure: require('./configure')
   };
 }).call(this);
