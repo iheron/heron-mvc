@@ -90,7 +90,7 @@
         options.action = action;
         options.method = 'put';
       }
-      this._module[options.path] = options;
+      this._module.push(options);
       return this;
     };
     prototype['delete'] = function(options, action){
@@ -102,7 +102,7 @@
         options.action = action;
         optiosn.method = 'delete';
       }
-      this._module[options.path] = options;
+      this._module.push(options);
       return this;
     };
     return heronModule;

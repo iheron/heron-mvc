@@ -72,7 +72,7 @@ class heron-module
       options.path = path
       options.action = action
       options.method = 'put'
-    @_module.[options.path] = options
+    @_module.push options
     @
 
   delete: (options, action) ->
@@ -82,8 +82,7 @@ class heron-module
       options.path = path
       options.action = action
       optiosn.method = 'delete'
-
-    @_module.[options.path] = options
+    @_module.push options
     @
 module.exports = heron-module
 
